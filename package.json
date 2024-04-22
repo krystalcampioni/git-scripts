@@ -1,0 +1,30 @@
+{
+  "name": "git-scripts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "npx esbuild ./src/index.ts --bundle --platform=node --target=es2019 --outfile=./dist/index.js",
+    "start": "node ./dist/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/cli": "^7.24.1",
+    "@babel/core": "^7.24.4",
+    "@babel/node": "^7.23.9",
+    "@babel/plugin-transform-runtime": "^7.24.3",
+    "@babel/preset-env": "^7.24.4",
+    "@babel/preset-typescript": "^7.24.1",
+    "nodemon": "^3.1.0",
+    "ts-node": "^10.9.2",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "@octokit/graphql": "^8.1.1",
+    "dotenv": "^16.4.5",
+    "esm": "^3.2.25"
+  }
+}

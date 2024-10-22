@@ -1,0 +1,22 @@
+mutation createIssuesMutation(
+  $repoId: ID!
+  $title: String!
+  $body: String!
+  $labelIds: [ID!]
+  $milestoneId: ID
+) {
+  createIssue(
+    input: {
+      repositoryId: $repoId
+      title: $title
+      body: $body
+      labelIds: $labelIds
+      milestoneId: $milestoneId
+    }
+  ) {
+    issue {
+      id
+      title
+    }
+  }
+}

@@ -1,5 +1,6 @@
 import { Organization } from "@octokit/graphql-schema";
-import { graphqlWithAuth } from "./graphql-with-auth";
+import { graphqlWithAuth } from "../graphql-with-auth";
+import getProjectIdQuery from "./getProjectIdQuery.graphql";
 
 export async function getProjectId({
   organization,
@@ -11,15 +12,7 @@ export async function getProjectId({
   const {
     organization: { projectV2 },
   } = await graphqlWithAuth<{ organization: Pick<Organization, "projectV2"> }>(
-    `
-  query($organization: String! $number: Int!){
-    organization(login: $organization){
-      projectV2(number: $number) {
-        id
-      }
-    }
-  }
-`,
+    getProjectIdQuery,
     {
       number,
       organization,

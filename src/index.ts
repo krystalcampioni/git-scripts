@@ -1,13 +1,13 @@
-import { getLabelIds } from "./get-label-ids";
+import { createIssues } from "./create-issues";
 
 async function main() {
   console.log("Server is running!!!");
 
   try {
-    const x = await getLabelIds(["bug", "ux"]);
-    console.log("Labels fetched:", { x });
+    const response = await createIssues();
+    console.log("Response:", { response });
   } catch (error) {
-    console.error("Error fetching labels:", error);
+    console.error("Error creating issues:", error);
   }
 }
 

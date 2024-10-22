@@ -1,0 +1,7 @@
+query getMilestoneId($owner: String!, $name: String!, $number: Int!) {
+  repository(owner: $owner, name: $name) {
+    milestone(number: $number) {
+      id
+    }
+  }
+}

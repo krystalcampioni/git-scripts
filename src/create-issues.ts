@@ -1,15 +1,9 @@
-import { getLabelIds } from "./get-label-ids";
+import { Repository } from "@octokit/graphql-schema";
 import { getMilestoneId } from "./get-milestone-id";
-import { getProjectId } from "./get-project-id";
-
 import { graphqlWithAuth } from "./graphql-with-auth";
+import { prepareIssuesArray } from "./prepare-issues-array";
 
-import {
-  makeIssues,
-  MILESTONE_NUMBER,
-  REPO_NAME,
-  REPO_OWNER,
-} from "./source-issues";
+import { MILESTONE_NUMBER, REPO_NAME, REPO_OWNER } from "./source-issues";
 
 export async function createIssue(issue: any, repoId: any) {
   try {
@@ -50,11 +44,10 @@ export async function createIssue(issue: any, repoId: any) {
 }
 
 export async function main() {
-  const issues = await makeIssues();
+  const issues = await prepareIssuesArray();
   const {
-    // @ts-ignore
     repository: { id: repoId },
-  } = await graphqlWithAuth(
+  } = await graphqlWithAuth<{ repository: Repository }>(
     `
     query($owner: String!, $name: String!) {
       repository(owner: $owner, name: $name) {

@@ -24,6 +24,8 @@
   },
   "dependencies": {
     "@octokit/graphql": "^8.1.1",
+    "@octokit/graphql-schema": "^15.25.0",
+    "@types/node": "^22.7.8",
     "dotenv": "^16.4.5",
     "esm": "^3.2.25"
   }

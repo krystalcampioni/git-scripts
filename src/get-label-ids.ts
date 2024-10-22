@@ -1,3 +1,4 @@
+import { Repository } from "@octokit/graphql-schema";
 import { graphqlWithAuth } from "./graphql-with-auth";
 
 const REPO_OWNER = "shopify";
@@ -8,11 +9,8 @@ export async function getLabelIds(labels: string[]) {
 
   for (const label of labels) {
     const {
-      // @ts-ignore
-      repository: {
-        labels: { nodes: labelNodes },
-      },
-    } = await graphqlWithAuth(
+      repository: { labels },
+    } = await graphqlWithAuth<{ repository: Repository }>(
       `
       query($owner: String!, $name: String!, $label: String!) {
         repository(owner: $owner, name: $name) {
@@ -32,7 +30,11 @@ export async function getLabelIds(labels: string[]) {
       }
     );
 
-    nodes.push(labelNodes[0].id);
+    const labelNodes = labels?.nodes || [];
+
+    if (labelNodes[0]?.id) {
+      nodes.push(labelNodes[0].id);
+    }
   }
 
   return nodes;

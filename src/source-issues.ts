@@ -1,6 +1,6 @@
-export const REPO_OWNER = "shopify";
-export const REPO_NAME = "forms";
-export const PROJECT_NUMBER = undefined; // 2894;
+export const REPO_OWNER = "krystalcampioni";
+export const REPO_NAME = "test-git-glider";
+export const PROJECT_NUMBER = 2; // 2894;
 export const MILESTONE_NUMBER = undefined; // 30;
 export const LABELS = undefined; //[bug"];
 

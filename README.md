@@ -1,22 +1,10 @@
 # Git Scripts
 
-This project contains a set of scripts to interact with GitHub's API, primarily focused on creating issues in a specific repository.
-
-## Project Overview
-
-The Git Scripts project is designed to automate the process of creating multiple issues in a GitHub repository. It uses the GitHub GraphQL API to perform various operations such as creating issues, fetching label IDs, and retrieving milestone information.
-
-## Features
-
-- Create multiple issues in a GitHub repository
-- Fetch label IDs for issue labeling
-- Retrieve milestone information
-- Use of GitHub's GraphQL API for efficient data fetching and mutation
+This project was designed to automate the process of creating multiple issues in a GitHub repository, automatically assigning them to a project and milestone, and adding labels.
 
 ## Prerequisites
 
 - Node.js (version specified in package.json)
-- npm (comes with Node.js)
 - A GitHub Personal Access Token with appropriate permissions
 
 ## Installation
@@ -24,7 +12,7 @@ The Git Scripts project is designed to automate the process of creating multiple
 1. Clone the repository
 2. Install dependencies:
    ```
-   npm install
+   yarn
    ```
 3. Create a `.env` file in the root directory and add your GitHub token:
    ```
@@ -33,5 +21,21 @@ The Git Scripts project is designed to automate the process of creating multiple
 
 ## Configuration
 
-The main configuration is done in the `src/create-issues.ts` file. You can modify the following constants:
+The main configuration is done in the `src/source-issues.ts` file. You can modify the following constants:
 
+- `REPO_OWNER`: The owner of the repository (e.g., "shopify")
+- `REPO_NAME`: The name of the repository (e.g., "forms")
+- `PROJECT_NUMBER`: The project number (optional)
+- `MILESTONE_NUMBER`: The milestone number (optional)
+- `LABELS`: An array of label names (optional)
+- `sourceIssues`: An array of issue objects with `title` and `body` properties
+
+## Usage
+
+After adding the issues you want to create to `source-issues.ts` run:
+
+```
+yarn dev
+```
+
+And all issues will be created in the repository, with the optional project, milestone and labels.

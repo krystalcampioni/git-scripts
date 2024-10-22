@@ -1,15 +1,15 @@
 import { getLabelIds } from "./get-label-ids";
 import { getMilestoneId } from "./get-milestone-id";
+import { getProjectId } from "./get-project-id";
 
 import { graphqlWithAuth } from "./graphql-with-auth";
 
-import { makeIssues } from "./source-issues";
-
-// The repository to add this issue to
-const REPO_OWNER = "shopify";
-const REPO_NAME = "forms";
-const PROJECT_NUMBER = 2894;
-const MILESTONE_NUMBER = 30; //appbridge
+import {
+  makeIssues,
+  MILESTONE_NUMBER,
+  REPO_NAME,
+  REPO_OWNER,
+} from "./source-issues";
 
 export async function createIssue(issue: any, repoId: any) {
   try {
@@ -19,7 +19,6 @@ export async function createIssue(issue: any, repoId: any) {
       number: MILESTONE_NUMBER,
     });
 
-    // // Create an issue
     const createIssueResponse = await graphqlWithAuth(
       `
       mutation ($repoId: ID!, $title: String!, $body: String!, $labelIds: [ID!], $milestoneId: ID, ) {
@@ -70,8 +69,6 @@ export async function main() {
   );
 
   for (const issue of issues) {
-    // @ts-ignore
-    console.log(">>>>", await issue);
     await createIssue(await issue, repoId);
   }
 }

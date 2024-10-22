@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "npx esbuild ./src/index.ts --bundle --platform=node --target=es2019 --outfile=./dist/index.js",
-    "start": "node ./dist/index.js"
+    "start": "nodemon ./dist/index.js"
   },
   "keywords": [],
   "author": "",

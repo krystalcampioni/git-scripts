@@ -1,54 +1,32 @@
 import { getLabelIds } from "./get-label-ids";
 import { getProjectId } from "./get-project-id";
 
-// The array of issues
+export const REPO_OWNER = "shopify";
+export const REPO_NAME = "forms";
+export const PROJECT_NUMBER = 2894;
+export const MILESTONE_NUMBER = 30;
+export const LABELS = ["gsd:40982"];
 
 export const sourceIssues = [
   {
-    title: "[FieldModal] Company Name Modal",
-    body: "Remove content route, ModalRenderer and ModalContent components, centralize implementation in a single component that uses AppBridgeV4Modal",
-  },
-  {
-    title: "[FieldModal] Contact Title Modal",
-    body: "Remove content route, ModalRenderer and ModalContent components, centralize implementation in a single component that uses AppBridgeV4Modal",
-  },
-  {
-    title: "[FieldModal] Company Tax ID Modal",
-    body: "Remove content route, ModalRenderer and ModalContent components, centralize implementation in a single component that uses AppBridgeV4Modal",
-  },
-  {
-    title: "[FieldModal] Company Billing & Shipping Address Modal",
-    body: "Remove content route, ModalRenderer and ModalContent components, centralize implementation in a single component that uses AppBridgeV4Modal",
-  },
-  {
-    title: "[FieldModal] Single Line Text Modal",
-    body: "Remove content route, ModalRenderer and ModalContent components, centralize implementation in a single component that uses AppBridgeV4Modal",
-  },
-  {
-    title: "[FieldModal] Dropdown List Modal",
-    body: "Remove content route, ModalRenderer and ModalContent components, centralize implementation in a single component that uses AppBridgeV4Modal",
-  },
-  {
-    title: "[FieldModal] Radio Buttons Modal",
-    body: "Remove content route, ModalRenderer and ModalContent components, centralize implementation in a single component that uses AppBridgeV4Modal",
-  },
-  {
-    title: "[FieldModal] Multi-line Text Modal",
-    body: "Remove content route, ModalRenderer and ModalContent components, centralize implementation in a single component that uses AppBridgeV4Modal",
-  },
-  {
-    title: "[FieldModal] Multiple Choice Modal",
-    body: "Remove content route, ModalRenderer and ModalContent components, centralize implementation in a single component that uses AppBridgeV4Modal",
-  },
-  {
-    title: "[FieldModal] Number Modal",
-    body: "Remove content route, ModalRenderer and ModalContent components, centralize implementation in a single component that uses AppBridgeV4Modal",
+    title: "test",
+    body: "test",
   },
 ];
 
 export const makeIssues = async () => {
+  const response = await getProjectId({
+    organization: REPO_OWNER,
+    number: 2894,
+  });
+
+  const labels = await getLabelIds(["gsd:40982"]);
+
+  const projectIds = [response];
+
   return sourceIssues.map(async (issue) => ({
     ...issue,
-    // labels: await getLabelIds(["gsd:40982"]),
+    labels,
+    projectIds,
   }));
 };

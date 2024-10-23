@@ -7,17 +7,17 @@ async function main() {
       repoOwner: "krystalcampioni",
       repoName: "test-git-glider",
       defaultLabels: ["feature"],
+      defaultAssignees: [],
       issues: [
         {
           title: "Issue 1",
           body: "Description 1",
-          assignees: ["krystalcampioni"],
         },
         {
           title: "Issue 2",
           body: "Description 2",
-          labels: ["urgent"], // This should override defaultLabels
-          assignees: [],
+          labels: ["urgent"],
+          assignees: ["krystalcampioni"],
         },
       ],
     });

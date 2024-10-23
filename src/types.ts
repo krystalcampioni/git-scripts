@@ -15,6 +15,7 @@ export type BatchIssueInput = {
   repoName: string;
   isOrg?: boolean;
   defaultLabels?: string[];
+  defaultAssignees?: string[];
   defaultProjectNumber?: number;
   defaultMilestoneNumber?: number;
   issues: {

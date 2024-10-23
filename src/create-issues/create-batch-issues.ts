@@ -10,7 +10,11 @@ export async function createBatchIssues(input: BatchIssueInput) {
 
     // Determine labels - if issue has specific labels, use those, otherwise use default
     const labels = issue.labels || input.defaultLabels || [];
+    // Determine assignees - if issue has specific assignees, use those, otherwise use default
+    const assignees = issue.assignees || input.defaultAssignees || [];
+
     console.log("Using labels:", labels);
+    console.log("Using assignees:", assignees);
 
     const issueInput: IssueInput = {
       repoOwner: input.repoOwner,
@@ -18,8 +22,8 @@ export async function createBatchIssues(input: BatchIssueInput) {
       isOrg: input.isOrg,
       title: issue.title,
       body: issue.body,
-      labels: labels,
-      assignees: issue.assignees,
+      labels,
+      assignees,
       projectNumber: issue.projectNumber || input.defaultProjectNumber,
       milestoneNumber: issue.milestoneNumber || input.defaultMilestoneNumber,
     };
@@ -33,6 +37,5 @@ export async function createBatchIssues(input: BatchIssueInput) {
     }
   }
 
-  console.log("\nBatch creation completed:", results.length, "issues created");
   return results;
 }

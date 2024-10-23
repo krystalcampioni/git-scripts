@@ -2,8 +2,7 @@ import { createIssues } from "./create-issues";
 
 async function main() {
   try {
-    const response = await createIssues();
-    console.log("Response:", { response });
+    await createIssues();
   } catch (error) {
     console.error("Error creating issues:", error);
   }

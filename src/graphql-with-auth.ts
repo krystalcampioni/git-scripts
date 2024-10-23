@@ -4,13 +4,19 @@ import { getToken } from "./get-token";
 
 const token = getToken();
 
-export const graphqlWithAuth = graphql.defaults({
+const withoutLogging = graphql.defaults({
+  headers: {
+    authorization: `token ${token}`,
+  },
+}) as <T = any>(query: string, parameters?: RequestParameters) => Promise<T>;
+
+const withLogging = graphql.defaults({
   headers: {
     authorization: `token ${token}`,
     "X-Github-Next-Global-ID": 1,
   },
   request: {
-    hook: async (request, options) => {
+    hook: async (request: any, options: any) => {
       console.log("\n=== GraphQL Request ===");
       console.log("Query:", options.query);
       console.log("Variables:", options.variables);
@@ -23,3 +29,5 @@ export const graphqlWithAuth = graphql.defaults({
     },
   },
 }) as <T = any>(query: string, parameters?: RequestParameters) => Promise<T>;
+
+export { withoutLogging as graphqlWithAuth, withLogging };

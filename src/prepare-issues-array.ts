@@ -10,35 +10,34 @@ import {
 } from "./source-issues";
 
 export const prepareIssuesArray = async () => {
-  let projectId;
-  if (PROJECT_NUMBER) {
-    projectId = await getProjectId({
-      owner: REPO_OWNER,
-      number: PROJECT_NUMBER,
-    });
-  }
+  const [projectId, labels] = await Promise.all([
+    PROJECT_NUMBER
+      ? getProjectId({
+          owner: REPO_OWNER,
+          number: PROJECT_NUMBER,
+        })
+      : null,
+    LABELS ? getLabelIds(LABELS) : [],
+  ]);
 
-  let labels: string[] = [];
+  const projectIds = projectId ? [projectId] : [];
 
-  if (LABELS) {
-    labels = await getLabelIds(LABELS);
-  }
+  const preparedIssues = await Promise.all(
+    sourceIssues.map(async (issue) => {
+      const assigneeIds = issue.assignees
+        ? await getAssigneeIds(issue.assignees)
+        : [];
 
-  const projectIds = [projectId];
+      const { assignees, ...issueWithoutAssignees } = issue;
 
-  const promises = sourceIssues.map(async (issue) => {
-    const assigneeIds = issue.assignees
-      ? await getAssigneeIds(issue.assignees)
-      : [];
+      return {
+        ...issueWithoutAssignees,
+        labels,
+        assigneeIds,
+        // projectIds,
+      };
+    })
+  );
 
-    const { assignees, ...issueWithoutAssignees } = issue;
-
-    return {
-      ...issueWithoutAssignees,
-      labels,
-      assigneeIds,
-    };
-  });
-
-  return await Promise.all(promises);
+  return preparedIssues;
 };

@@ -7,7 +7,6 @@ import { MILESTONE_NUMBER, REPO_NAME, REPO_OWNER } from "../source-issues";
 import { getRepoId } from "../get-repo-id";
 
 export async function createIssueGraphqlCall(issue: any, repoId: any) {
-  console.log("issue being created>>>>", issue);
   try {
     let milestoneId;
     if (MILESTONE_NUMBER) {

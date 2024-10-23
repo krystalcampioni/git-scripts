@@ -1,8 +1,8 @@
 export const REPO_OWNER = "krystalcampioni";
 export const REPO_NAME = "test-git-glider";
-export const PROJECT_NUMBER = 1; // 2894;
-export const MILESTONE_NUMBER = 1; // 30;
-export const LABELS = ["bug"];
+export const PROJECT_NUMBER = undefined;
+export const MILESTONE_NUMBER = undefined;
+export const LABELS = ["yolo2"];
 
 export const IS_ORG = false;
 
@@ -12,7 +12,7 @@ export const sourceIssues: {
   assignees?: string[];
 }[] = [
   {
-    title: "newmile",
+    title: "some issue",
     body: "test",
     assignees: ["krystalcampioni"],
   },

@@ -2,7 +2,6 @@ import { Repository } from "@octokit/graphql-schema";
 import { graphqlWithAuth } from "../graphql-with-auth";
 import getLabelIdsQuery from "./getLabelIdsQuery.graphql";
 import createLabelMutation from "./createLabelMutation.graphql";
-import { REPO_NAME, REPO_OWNER } from "../source-issues";
 import { getRepoId } from "../get-repo-id";
 
 const labelColors = [
@@ -28,28 +27,30 @@ const getRandomColor = (): string => {
   return labelColors[Math.floor(Math.random() * labelColors.length)];
 };
 
-export async function getLabelIds(labels: string[]) {
+export async function getLabelIds(
+  labels: string[],
+  owner: string,
+  name: string
+) {
   console.log("Creating/checking labels:", labels);
   const nodes = [];
-  const repoId = await getRepoId();
+  const repoId = await getRepoId(owner, name);
 
   for (const label of labels) {
     const {
       repository: { labels: existingLabels },
     } = await graphqlWithAuth<{ repository: Repository }>(getLabelIdsQuery, {
-      owner: REPO_OWNER,
-      name: REPO_NAME,
+      owner,
+      name,
       label: label,
     });
 
     const labelNodes = existingLabels?.nodes || [];
-    // Only use the label if it's an exact match
     const exactMatch = labelNodes.find((node) => node?.name === label);
 
     if (exactMatch?.id) {
       nodes.push(exactMatch.id);
     } else {
-      // Create label if it doesn't exist
       const { createLabel } = await graphqlWithAuth(createLabelMutation, {
         repositoryId: repoId,
         name: label,

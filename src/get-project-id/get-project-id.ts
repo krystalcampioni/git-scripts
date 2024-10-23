@@ -2,16 +2,17 @@ import { Organization, User } from "@octokit/graphql-schema";
 import { graphqlWithAuth } from "../graphql-with-auth";
 import getOrgProjectIdQuery from "./getOrgProjectIdQuery.graphql";
 import getUserProjectIdQuery from "./getUserProjectIdQuery.graphql";
-import { IS_ORG } from "../source-issues";
 
 export async function getProjectId({
   owner,
   number,
+  isOrg = false,
 }: {
   owner: string;
   number: number;
+  isOrg?: boolean;
 }) {
-  if (IS_ORG) {
+  if (isOrg) {
     const {
       organization: { projectV2 },
     } = await graphqlWithAuth<{

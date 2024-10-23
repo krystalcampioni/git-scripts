@@ -1,0 +1,7 @@
+query getUserProjectId($user: String!, $number: Int!) {
+  user(login: $user) {
+    projectV2(number: $number) {
+      id
+    }
+  }
+}

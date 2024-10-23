@@ -1,5 +1,6 @@
 import { getLabelIds } from "./get-label-ids";
 import { getProjectId } from "./get-project-id";
+import { getAssigneeIds } from "./get-assignee-id/get-assignee-id";
 
 import {
   REPO_OWNER,
@@ -9,10 +10,10 @@ import {
 } from "./source-issues";
 
 export const prepareIssuesArray = async () => {
-  let response;
+  let projectId;
   if (PROJECT_NUMBER) {
-    response = await getProjectId({
-      organization: REPO_OWNER,
+    projectId = await getProjectId({
+      owner: REPO_OWNER,
       number: PROJECT_NUMBER,
     });
   }
@@ -23,11 +24,21 @@ export const prepareIssuesArray = async () => {
     labels = await getLabelIds(LABELS);
   }
 
-  const projectIds = [response];
+  const projectIds = [projectId];
 
-  return sourceIssues.map(async (issue) => ({
-    ...issue,
-    labels,
-    projectIds,
-  }));
+  const promises = sourceIssues.map(async (issue) => {
+    const assigneeIds = issue.assignees
+      ? await getAssigneeIds(issue.assignees)
+      : [];
+
+    const { assignees, ...issueWithoutAssignees } = issue;
+
+    return {
+      ...issueWithoutAssignees,
+      labels,
+      assigneeIds,
+    };
+  });
+
+  return await Promise.all(promises);
 };

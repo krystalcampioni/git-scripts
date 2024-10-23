@@ -7,6 +7,7 @@ import { MILESTONE_NUMBER, REPO_NAME, REPO_OWNER } from "../source-issues";
 import { getRepoId } from "../get-repo-id";
 
 export async function createIssueGraphqlCall(issue: any, repoId: any) {
+  console.log("issue being created>>>>", issue);
   try {
     let milestoneId;
     if (MILESTONE_NUMBER) {
@@ -23,6 +24,8 @@ export async function createIssueGraphqlCall(issue: any, repoId: any) {
       body: issue.body,
       labelIds: issue.labels,
       milestoneId: milestoneId,
+      projectIds: issue.projectIds,
+      assigneeIds: issue.assigneeIds,
     });
 
     console.log(
@@ -36,6 +39,7 @@ export async function createIssueGraphqlCall(issue: any, repoId: any) {
 
 export async function createIssues() {
   const issues = await prepareIssuesArray();
+
   const repoId = await getRepoId();
 
   for (const issue of issues) {

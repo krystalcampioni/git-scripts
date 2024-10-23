@@ -4,6 +4,8 @@ mutation createIssuesMutation(
   $body: String!
   $labelIds: [ID!]
   $milestoneId: ID
+  $projectIds: [ID!]
+  $assigneeIds: [ID!]
 ) {
   createIssue(
     input: {
@@ -12,6 +14,8 @@ mutation createIssuesMutation(
       body: $body
       labelIds: $labelIds
       milestoneId: $milestoneId
+      projectIds: $projectIds
+      assigneeIds: $assigneeIds
     }
   ) {
     issue {

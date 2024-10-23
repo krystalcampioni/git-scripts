@@ -1,0 +1,5 @@
+query getAssigneeId($login: String!) {
+  user(login: $login) {
+    id
+  }
+}

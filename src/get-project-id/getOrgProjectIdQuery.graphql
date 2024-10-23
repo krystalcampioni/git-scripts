@@ -1,4 +1,4 @@
-query getProjectId($organization: String!, $number: Int!) {
+query getOrgProjectId($organization: String!, $number: Int!) {
   organization(login: $organization) {
     projectV2(number: $number) {
       id

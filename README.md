@@ -23,12 +23,13 @@ This project was designed to automate the process of creating multiple issues in
 
 The main configuration is done in the `src/source-issues.ts` file. You can modify the following constants:
 
-- `REPO_OWNER`: The owner of the repository (e.g., "shopify")
-- `REPO_NAME`: The name of the repository (e.g., "forms")
+- `REPO_OWNER`: The owner of the repository (e.g., "krystalcampioni")
+- `REPO_NAME`: The name of the repository (e.g., "monster-slayer")
 - `PROJECT_NUMBER`: The project number (optional)
 - `MILESTONE_NUMBER`: The milestone number (optional)
 - `LABELS`: An array of label names (optional)
 - `sourceIssues`: An array of issue objects with `title` and `body` properties
+- `IS_ORG`: Set to `true` if the repository belongs to an organization, `false` for individual user repositories
 
 ## Usage
 

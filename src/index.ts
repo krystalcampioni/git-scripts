@@ -1,8 +1,6 @@
 import { createIssues } from "./create-issues";
 
 async function main() {
-  console.log("Server is running!!!");
-
   try {
     const response = await createIssues();
     console.log("Response:", { response });
